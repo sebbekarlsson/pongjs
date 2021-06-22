@@ -4,15 +4,7 @@ const ctx = canvas.getContext("2d"); // pappret vi ritar pa.
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 
-const ball = new Ball(
-  WIDTH / 2,    // x
-  HEIGHT / 2,    // y
-  16,     // width
-  16,     // height
-  ctx,    // papper
-  "white"// farg
-);
-gameObjects.push(ball); // tryck in i listan
+insertBall();
 
 const pad1 = new Player(
   WIDTH-64,       // x
@@ -38,14 +30,42 @@ function loop() {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, WIDTH, HEIGHT); // "rensar skarmen"
 
-  ball.update();
-  ball.draw();
+  // rack upp handen nar allt fungerar igen
+  gameObjects.forEach(function(obj){
+    obj.update();
+    obj.draw();
+  });
 
-  pad1.update();
-  pad1.draw();
+  drawText(
+    ctx,
+    `Enemy: ${gameState.enemyScore}`,
+    "white",
+    24,
+    32,
+    32
+  );
 
-  pad2.update();
-  pad2.draw();
+  drawText(
+    ctx,
+    `Player: ${gameState.playerScore}`,
+    "white",
+    24,
+    WIDTH - 128,
+    32
+  );
+
+  // rack upp handen om ni ser texten
+  if (gameState.locked) {
+    drawText(
+      ctx,
+      gameState.lastWinner === PLAYERS.enemy ? "Enemy won!" : "You won!",
+      "red",
+      48,
+      WIDTH/2,
+      HEIGHT/2,
+      true
+    );
+  }
 
   requestAnimationFrame(loop);
 }
