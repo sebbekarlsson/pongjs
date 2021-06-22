@@ -14,7 +14,7 @@ const ball = new Ball(
 );
 gameObjects.push(ball); // tryck in i listan
 
-const pad1 = new Pad(
+const pad1 = new Player(
   WIDTH-64,       // x
   (HEIGHT / 2) - (86/2),   // y
   32,           // width
@@ -24,7 +24,7 @@ const pad1 = new Pad(
 );
 gameObjects.push(pad1); // tryck in i listan
 
-const pad2 = new Pad(
+const pad2 = new Enemy(
   32,       // x
   (HEIGHT / 2) - (86/2),   // y
   32,           // width
